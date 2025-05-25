@@ -25,6 +25,8 @@ public record CadastroPacienteDTO(
 
         @NotNull
         @Valid
-        EnderecoDTO endereco
+        EnderecoDTO endereco,
+
+        Boolean ativo
 ) {
 }

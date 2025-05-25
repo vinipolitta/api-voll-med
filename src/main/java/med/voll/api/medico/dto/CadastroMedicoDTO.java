@@ -29,5 +29,10 @@ public record CadastroMedicoDTO(
 
         @NotNull
         @Valid
-        EnderecoDTO endereco) {
+        EnderecoDTO endereco,
+
+
+        @NotNull
+        Boolean ativo
+) {
 }

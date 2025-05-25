@@ -5,10 +5,12 @@ import jakarta.validation.Valid;
 import med.voll.api.medico.Medico;
 import med.voll.api.medico.dto.CadastroMedicoDTO;
 import med.voll.api.medico.dto.ListagemMedicoDTO;
+import med.voll.api.medico.dto.UpdateMedicoDTO;
 import med.voll.api.medico.repository.MedicoRepository;
 import med.voll.api.paciente.Paciente;
 import med.voll.api.paciente.dto.CadastroPacienteDTO;
 import med.voll.api.paciente.dto.ListagemPacienteDTO;
+import med.voll.api.paciente.dto.UpdatePacienteDTO;
 import med.voll.api.paciente.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,6 +33,20 @@ public class PacienteController {
 
     @GetMapping
     public Page<ListagemPacienteDTO> getAllPaciente(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return repository.findAll(paginacao).map(ListagemPacienteDTO::new);
+        return repository.findAllByAtivoTrue(paginacao).map(ListagemPacienteDTO::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void updatePaciente(@RequestBody @Valid UpdatePacienteDTO dados) {
+        var paciente = repository.getReferenceById(dados.id());
+        paciente.updateInfos(dados);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deletePaciente(@PathVariable Long id) {
+        var paciente = repository.getReferenceById(id);
+        paciente.delete();
     }
 }

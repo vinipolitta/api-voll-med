@@ -6,6 +6,7 @@ import med.voll.api.endereco.dto.EnderecoDTO;
 import med.voll.api.medico.Medico;
 import med.voll.api.medico.dto.CadastroMedicoDTO;
 import med.voll.api.medico.dto.ListagemMedicoDTO;
+import med.voll.api.medico.dto.UpdateMedicoDTO;
 import med.voll.api.medico.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,22 @@ public class MedicoController {
     }
 
     @GetMapping
-    public Page<ListagemMedicoDTO> getAllMedicos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        return repository.findAll(paginacao).map(ListagemMedicoDTO::new);
+    public Page<ListagemMedicoDTO> getAllMedicosAtivo(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+        return repository.findAllByAtivoTrue(paginacao).map(ListagemMedicoDTO::new);
     }
+
+    @PutMapping
+    @Transactional
+    public void updateMedico(@RequestBody @Valid UpdateMedicoDTO dados) {
+        var medico = repository.getReferenceById(dados.id());
+        medico.updateInfos(dados);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deleteMedico(@PathVariable Long id) {
+        var medico = repository.getReferenceById(id);
+        medico.delete();
+    }
+
 }
