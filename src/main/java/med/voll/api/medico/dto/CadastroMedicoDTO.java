@@ -32,7 +32,6 @@ public record CadastroMedicoDTO(
         EnderecoDTO endereco,
 
 
-        @NotNull
         Boolean ativo
 ) {
 }
