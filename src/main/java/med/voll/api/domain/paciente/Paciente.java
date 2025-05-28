@@ -1,4 +1,4 @@
-package med.voll.api.paciente;
+package med.voll.api.domain.paciente;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -6,11 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.endereco.Endereco;
-import med.voll.api.medico.Especialidade;
-import med.voll.api.medico.dto.CadastroMedicoDTO;
-import med.voll.api.paciente.dto.CadastroPacienteDTO;
-import med.voll.api.paciente.dto.UpdatePacienteDTO;
+import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.domain.paciente.dto.CadastroPacienteDTO;
+import med.voll.api.domain.paciente.dto.UpdatePacienteDTO;
 
 
 @Table(name = "pacientes")

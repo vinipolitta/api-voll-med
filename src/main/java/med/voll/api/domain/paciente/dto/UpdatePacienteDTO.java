@@ -1,6 +1,6 @@
-package med.voll.api.paciente.dto;
+package med.voll.api.domain.paciente.dto;
 
-import med.voll.api.endereco.dto.EnderecoDTO;
+import med.voll.api.domain.endereco.dto.EnderecoDTO;
 
 public record UpdatePacienteDTO(
         Long id,
