@@ -29,7 +29,6 @@ public class MedicoController {
         var medico = new Medico(dados);
         repository.save(medico);
         var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
-
         return ResponseEntity.created(uri).body(new DetalhamentoMedicoDTO(medico));
     }
 
@@ -44,8 +43,6 @@ public class MedicoController {
     public ResponseEntity<DetalhamentoMedicoDTO> updateMedico(@RequestBody @Valid UpdateMedicoDTO dados) {
         var medico = repository.getReferenceById(dados.id());
         medico.updateInfos(dados);
-
-
         return ResponseEntity.ok(new DetalhamentoMedicoDTO(medico));
     }
 
