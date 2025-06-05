@@ -21,6 +21,13 @@ public class TratadorDeErros {
 
         return ResponseEntity.badRequest().body(erros.stream().map(ErroValidacaoDTO::new).toList());
     }
+    @ExceptionHandler(ValidacaoExcepption.class)
+    public ResponseEntity tratarErroRegraDeNegocio(ValidacaoExcepption exception) {
+        var dto = new DadosErroValidacao(exception.getMessage());
+        return ResponseEntity.badRequest().body(dto);
+    }
+
+
 
     private record ErroValidacaoDTO(String campo, String msg) {
 
