@@ -1,5 +1,6 @@
 package med.voll.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import med.voll.api.domain.usuario.Usuario;
 import med.voll.api.domain.usuario.dto.AuthDTO;
@@ -53,6 +54,7 @@ public class AuthController {
     }
 
     @GetMapping
+    @SecurityRequirement(name = "bearer-key")
     public ResponseEntity getUsuarios(@PageableDefault(size = 10, sort = {"login"}) Pageable paginacao) {
         var page = repository.findAll(paginacao).map(CadastroUsuarioDTO::new);
         return ResponseEntity.ok(page);
